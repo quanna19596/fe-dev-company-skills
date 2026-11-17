@@ -18,7 +18,7 @@ Kiểm tra lần lượt. Thiếu điều kiện nào thì dừng lại và dùn
 | Có `CLAUDE.local.md` | `onboard-project` |
 | Ghi chú tính năng có phân tích yêu cầu | `analyze-requirements` |
 | Kế hoạch triển khai đã được người dùng duyệt | `locate-and-assess` |
-| Đang đứng đúng nhánh tính năng (`git branch --show-current`) | `start-feature` |
+| Đang đứng đúng nhánh tính năng: chạy `git branch --show-current` và hỏi người dùng xác nhận | Nhờ người dùng tạo hoặc chuyển nhánh |
 
 Phần nào của tính năng còn phụ thuộc câu hỏi chưa có câu trả lời thì để lại sau, làm các phần khác trước. Báo người dùng biết đang để lại phần nào.
 
@@ -54,7 +54,7 @@ Phần nào của tính năng còn phụ thuộc câu hỏi chưa có câu trả
    - các file tạo mới, các file đã sửa;
    - phần nào chưa làm và vì sao (đang chờ câu hỏi nào);
    - kết quả các lệnh kiểm tra.
-4. Không commit. Việc commit do skill `ship-changes` làm.
+4. Không commit, không push. Người dùng tự làm các bước git. Nếu người dùng nhờ, soạn commit message tiếng Anh theo quy ước trong hồ sơ dự án.
 
 ## Lỗi thường gặp
 

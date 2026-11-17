@@ -26,11 +26,8 @@ Viết báo cáo mô tả chi tiết những gì đã code cho một tính năng
 
 ## Quy trình
 
-1. Chạy `git diff <commit gốc> HEAD --stat` để có danh sách file thay đổi, sau đó đọc diff chi tiết.
-   - Commit gốc lấy trong bảng "Nhánh & commit" của ghi chú tính năng.
-   - Không dùng `<nhánh gốc>...HEAD`: nếu nhánh tính năng đã được merge vào nhánh gốc thì diff đó sẽ rỗng.
-   - Nếu ghi chú không có commit gốc, tìm bằng `git reflog show <nhánh tính năng>`, hoặc hỏi người dùng.
-   - Với chiến lược cherry-pick, dùng nhánh A1 và commit gốc của A1. Nhánh này chứa đầy đủ code của tính năng.
+1. Hỏi người dùng hai thông tin: nhánh nào chứa đầy đủ code của tính năng, và lấy diff so với mốc nào (nhánh hoặc commit gốc). Sau đó chạy `git diff <mốc> <nhánh tính năng> --stat` để có danh sách file thay đổi, rồi đọc diff chi tiết.
+   - Nếu nhánh tính năng đã được merge vào nhánh gốc thì `<nhánh gốc>...HEAD` sẽ ra rỗng. Gặp trường hợp này thì hỏi người dùng commit gốc, hoặc tìm bằng `git reflog show <nhánh tính năng>`.
 2. **Xác định màn hình.** Với mỗi file UI có thay đổi, lần theo chuỗi import ngược lên tới chỗ khai báo route để biết file thuộc màn hình nào.
    - Đường dẫn ghi theo đúng cách khai báo trong router, không có domain. Giữ nguyên tham số động, ví dụ `/orders/:id`.
    - Một component dùng chung nằm trong nhiều màn hình thì liệt kê ở mọi màn hình bị ảnh hưởng.

@@ -30,15 +30,11 @@ So sánh "mong muốn" của tester với BRD, Figma và các câu trả lời �
 | Lỗi nằm ở phần code cũ, đã có từ trước khi làm tính năng | Báo người dùng. Soạn câu trả lời cho tester và câu hỏi cho BA xem có cần sửa không. Sửa thì phải được BA đồng ý |
 | Tài liệu không nói rõ | Hỏi BA hoặc Designer trước khi sửa |
 
-Để biết lỗi có từ trước hay không, xem đoạn code gây lỗi có nằm trong diff của nhánh tính năng không: `git diff <commit gốc> HEAD`, commit gốc lấy trong ghi chú tính năng. Có thể dùng thêm `git log -L` hoặc `git blame` cho đoạn code đó.
+Để biết lỗi có từ trước hay không, xem đoạn code gây lỗi có nằm trong các thay đổi của tính năng không, bằng `git log -L` hoặc `git blame` cho đoạn code đó. Không chắc commit nào thuộc tính năng thì hỏi người dùng.
 
-## 3. Chọn nhánh để sửa
+## 3. Nhánh để sửa
 
-- **Chiến lược chuẩn:** sửa trên nhánh tính năng.
-- **Chiến lược cherry-pick, bug ở môi trường thấp nhất (A):** sửa trên A1.
-- **Chiến lược cherry-pick, bug ở môi trường cao hơn (B, C):** hỏi người dùng nên sửa trên nhánh nào trước, rồi đưa commit sang các nhánh còn lại như thế nào. Hồ sơ dự án chưa có quy tắc cho trường hợp này. Khi người dùng trả lời, hỏi có cho ghi quy tắc đó vào hồ sơ dự án không.
-
-Kiểm tra đang đứng đúng nhánh và working tree sạch. Cần chuyển nhánh thì hỏi người dùng trước.
+Quy trình git do người dùng tự quyết theo tình hình dự án. Hỏi người dùng sửa trên nhánh nào, rồi kiểm tra đang đứng đúng nhánh đó (`git branch --show-current`). Không tự chuyển nhánh.
 
 ## 4. Tìm nguyên nhân gốc
 
@@ -54,12 +50,11 @@ Kiểm tra đang đứng đúng nhánh và working tree sạch. Cần chuyển n
 - Chạy lint, type-check, test theo hồ sơ dự án.
 - Trình bày cho người dùng: nguyên nhân, cách sửa, file nào bị sửa.
 
-## 6. Đẩy code lên
+## 6. Sau khi sửa
 
-Dùng skill `ship-changes`. Commit message ghi mã bug, ví dụ `fix(<mã bug>): ...`.
-
-Sau đó:
-- Hỏi người dùng có cho ghi vào bảng "Bug" trong ghi chú tính năng không (mã bug, môi trường, nguyên nhân, commit fix).
+- Không commit, không push. Người dùng tự làm các bước git.
+- Nếu người dùng nhờ, soạn commit message tiếng Anh theo quy ước trong hồ sơ dự án, có ghi mã bug.
+- Hỏi người dùng có cho ghi vào bảng "Bug" trong ghi chú tính năng không (mã bug, môi trường, nguyên nhân, file đã sửa).
 - Nếu người dùng muốn, soạn sẵn comment để trả lời tester trên Jira: nguyên nhân, đã sửa ở commit nào, cần chờ deploy.
 
 ## Lỗi thường gặp

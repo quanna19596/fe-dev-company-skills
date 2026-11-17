@@ -32,16 +32,12 @@ Tạo file hồ sơ dự án `CLAUDE.local.md` ở root repo. Mọi skill khác 
 | Các nhánh chính | `git branch -a`, `git log --oneline --graph -30 --all` |
 | Các môi trường | Tên các file `.env.*`, cấu hình CI (`.gitlab-ci.yml`). Chỉ đọc tên file và tên biến, **không đọc và không chép giá trị** (có thể chứa secret). |
 
-Khi xem lịch sử git, để ý các commit trùng nội dung nằm rải rác trên nhiều nhánh. Đó là dấu hiệu dự án đang dùng chiến lược cherry-pick.
-
 ### 3. Hỏi người dùng
 
 Trình bày những gì đã tìm thấy ở bước 2, kèm phán đoán của mình. Sau đó hỏi các mục dưới đây. Các mục này **khác nhau theo từng dự án**, nên luôn phải hỏi, không được lấy từ dự án khác:
 
 1. **Môi trường ↔ nhánh chính:** có những môi trường nào, thứ tự từ thấp lên cao, mỗi môi trường ứng với nhánh nào.
-2. **Chiến lược git:**
-   - *Chuẩn:* checkout từ nhánh môi trường cao nhất, tạo merge request lần lượt vào các nhánh kiểm thử, cuối cùng là merge request vào nhánh cao nhất để golive.
-   - *Cherry-pick:* mỗi môi trường một nhánh tính năng riêng.
+2. **Ghi chú về git:** người dùng muốn ghi lại gì về cách làm git của dự án này. Ghi nguyên văn lời người dùng, không tự khái quát thành quy trình.
 3. **Quy ước Jira của PM:** cấu trúc (Epic/Story/Task/Sub-task), cách đặt tên task, ngôn ngữ viết task, các trường bắt buộc, estimate, label, component.
 4. **Quy ước git:** cách đặt tên nhánh, format commit message, mẫu mô tả merge request. Commit và mô tả merge request luôn viết tiếng Anh.
 5. **Kiểm tra trước khi push:** có bắt buộc chạy lint, type-check, unit test không, và chạy bằng lệnh nào.

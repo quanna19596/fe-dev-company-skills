@@ -1,67 +1,66 @@
-# Ngữ cảnh để phát triển bộ skill này
+# Ngữ cảnh repo `fe-dev-company-skills`
 
-> File này dành cho các phiên Claude Code mở trong chính repo này, để tiếp tục hoàn thiện bộ skill trên bất kỳ máy nào.
-> Khi copy bộ skill vào dự án công ty thì **chỉ copy `.claude/skills/`**, không copy file này.
-> Mỗi khi có quyết định mới, cập nhật file này rồi commit và push.
+File này dành cho Claude khi người dùng mở repo này để chỉnh sửa hoặc mở rộng bộ skill. File không được copy vào dự án công ty (chỉ thư mục `.claude/skills/` được copy).
 
-## Người dùng
+## Repo này là gì
 
-- Giao tiếp bằng tiếng Việt. Nội dung skill viết tiếng Việt.
-- Làm 2 luồng việc:
-  - **Ở công ty:** Frontend Web Developer, ReactJS, thường dùng TypeScript.
-  - **Ngoài giờ:** nhận dự án trực tiếp từ khách hàng và tự lo mọi việc. Luồng này **chưa bắt đầu xây skill**, sẽ làm sau khi xong luồng công ty.
-- Mục tiêu: có một hệ thống skill để Claude làm việc thay người dùng. Người dùng gọi skill bằng `/tên`, hoặc Claude tự chọn đúng skill.
+Bộ skill Claude Code giúp Claude làm việc thay người dùng, như một bản sao của họ. Người dùng là Frontend Web Developer (ReactJS, thường dùng TypeScript), làm full-time ở công ty. Ngoài giờ họ nhận dự án freelance trực tiếp từ khách hàng.
 
-## Quy trình ở công ty (bộ skill này mô phỏng)
+- **Luồng 1, công ty:** đang làm (thư mục `.claude/skills/`).
+- **Luồng 2, freelance ngoài giờ:** chưa bắt đầu, sẽ làm sau.
 
-1. Nhận tài liệu: BRD (từ BA), Figma (từ Designer), BE Specs (từ BE).
-2. Chia task trên Jira.
-3. Checkout nhánh.
-4. Khoanh vùng code.
-5. Code.
-6. Push và tạo merge request vào nhánh môi trường kiểm thử. Việc deploy do đội vận hành lo; deploy xong thì người dùng báo tester.
-7. Tester log bug trên Jira. Người dùng fix ngay trên nhánh tính năng rồi push lại. Lặp lại tới khi hết bug.
-8. Tạo merge request lên môi trường kiểm thử cao hơn, hoặc vào production chờ lịch golive.
-9. Viết báo cáo cho tính năng.
+Cách phân phối: repo nằm ở `~/Workspace/AI/fe-dev-company-skills` trên máy cá nhân, remote `https://github.com/quanna19596/fe-dev-company-skills.git`. Khi cần dùng ở dự án nào, người dùng copy `.claude/skills/` vào root dự án đó (máy nào cũng được). Vì vậy **mọi skill phải tự chứa**: không phụ thuộc `~/.claude`, không phụ thuộc plugin (kể cả superpowers).
 
-Với dự án mới tham gia, phải tìm hiểu trước: các môi trường ↔ nhánh chính, bối cảnh chung. Nghiệp vụ thì học dần trong quá trình làm.
+## Bối cảnh làm việc ở công ty (để viết skill cho đúng)
 
-## Quy tắc người dùng đã đặt
+- Tài liệu đầu vào: BRD (từ BA), Figma (từ Designer), BE Specs (từ BE). Người dùng chia task trên Jira, code, tạo merge request trên GitLab, tester test và log bug trên Jira, rồi lên môi trường cao hơn hoặc golive.
+- Dự án legacy nhiều năm, không có tài liệu, không hỏi được người viết code cũ:
+  - Hạn chế tối đa sửa code cũ. Phải sửa thì hỏi BA trước, kèm các rủi ro.
+  - Không tạo bản trùng lặp. Đánh giá thứ đã có trước khi viết mới.
+- Code lệch nhỏ so với Figma: hỏi Designer, không tự sửa theo Figma.
+- Công ty cấm kết nối công cụ ngoài, nên không dùng MCP cho Jira hay GitLab. Claude soạn sẵn nội dung để người dùng tự paste. Riêng **Figma MCP** người dùng chọn dùng.
+- Cần hỏi BA, Designer, BE, Tester thì hỏi thẳng người dùng. Họ tự đi hỏi rồi mang câu trả lời về.
 
-- **Không kết nối MCP tới Jira, GitLab hay công cụ nội bộ** (quy định công ty). Claude xuất nội dung để người dùng tự paste. Việc gì không làm được trực tiếp thì nói rõ để người dùng làm thay. BRD và BE Specs do người dùng paste vào.
-  - **Ngoại lệ:** Figma MCP. Người dùng muốn kết nối. Khi chưa kết nối được thì dùng ảnh chụp màn hình và thông số từ tab Inspect.
-- **Hỏi trước MỌI hành động**: tạo nhánh, commit, push, merge request, nội dung đưa lên Jira… Người dùng sẽ tự nới quyền cho từng việc cụ thể khi đủ tin tưởng.
-- Cần hỏi BA, Designer hay Tester thì hỏi thẳng người dùng, coi người dùng như chính người đó. Người dùng sẽ tự đi hỏi và mang câu trả lời về.
-- Commit message và mô tả merge request viết **tiếng Anh**.
-- Quy ước Jira (theo PM), quy ước branch/commit/merge request, thư viện state/UI, có unit test hay lint không: **khác nhau theo từng dự án**. Phải hỏi khi onboard từng dự án, không được đoán.
-- **Code legacy** (nhiều năm, không có tài liệu, không hỏi được người viết cũ):
-  - Hạn chế tối đa sửa code cũ. Phải sửa thì hỏi BA trước, kèm các rủi ro. BA không đồng ý hoặc không chắc thì tìm phương án khác.
-  - Nhưng không tạo bản trùng lặp. Đọc và đánh giá thứ đang có: sửa nhẹ mà không ảnh hưởng nơi khác thì tái sử dụng, khác quá thì viết mới.
-- **Code lệch nhỏ với Figma** (ví dụ bo góc 4px trong code, 6px trong Figma): hỏi Designer, không tự sửa. Có thể design system mới đúng còn Figma nhầm.
-- **Git:** nhánh gốc tuỳ dự án.
-  - *Chuẩn:* checkout từ nhánh môi trường cao nhất → merge request lần lượt xuống các nhánh kiểm thử → merge request vào nhánh cao nhất để golive.
-  - *Cherry-pick* (dự án lịch sử commit lộn xộn): với các môi trường A → B → C, có các nhánh tính năng A1, B1, C1. Code và push lên A1; checkout B1 rồi cherry-pick từ A1; khi golive checkout C1 rồi cherry-pick từ B1. Rebase nếu cần.
-- **Format báo cáo:**
-  ```
-  <Tóm tắt lấy nguyên văn từ BRD>
-  Chi tiết thay đổi:
-  * Màn hình <Tên tiếng Việt theo nghiệp vụ> (<path không có domain>):
-     * Call API <METHOD> <url> để <tác dụng>
-  * Giao diện màn hình (<path>)      ← màn hình chỉ sửa UI, không có dòng con
-  ```
+## Quy ước khi viết hoặc sửa skill
 
-## Thiết kế bộ skill
+- Nội dung skill viết **tiếng Việt**. Commit message và mô tả merge request mà skill soạn ra viết **tiếng Anh**.
+- Frontmatter `description` bắt đầu bằng "Dùng khi…" và chỉ nêu khi nào dùng, kèm từ khoá người dùng hay nói. Không tóm tắt quy trình trong description.
+- Mỗi skill đọc `CLAUDE.local.md` (hồ sơ dự án, do `onboard-project` tạo) và `.claude/features/<mã>.md` (ghi chú tính năng, mẫu ở `analyze-requirements/ghi-chu-tinh-nang-template.md`).
+- Phần "Quy tắc chung" nằm trong `onboard-project/ho-so-du-an-template.md`. Đổi quy tắc chung thì sửa ở đó.
+- Quy ước nào khác nhau theo dự án (Jira, đặt tên nhánh, commit, MR, thư viện, lint/test) thì skill phải **hỏi người dùng**, không được mặc định.
+- Mọi hành động làm thay đổi trạng thái đều phải hỏi người dùng trước.
+- Đổi skill thì cập nhật luôn `README.md` và `HUONG-DAN-SU-DUNG.md` cho khớp.
+- Có quyết định mới thì ghi vào bảng "Các quyết định đã chốt" bên dưới. Commit và push chỉ khi người dùng đồng ý.
 
-- **Phân phối:** repo cá nhân này. Khi dùng thì copy `.claude/skills/` vào từng dự án (máy nào cũng được), hoặc vào `~/.claude/skills/`. Vì vậy skill phải tự chạy được, không phụ thuộc cấu hình riêng của máy.
-- **Các skill nối nhau qua 2 file chỉ có ở máy cá nhân,** đã thêm vào `.git/info/exclude` của dự án:
-  - `CLAUDE.local.md`: hồ sơ dự án, do `onboard-project` tạo từ `onboard-project/ho-so-du-an-template.md`. Phần đầu file chứa các quy tắc chung ở trên.
-  - `.claude/features/<mã>.md`: ghi chú của từng tính năng, theo mẫu `analyze-requirements/ghi-chu-tinh-nang-template.md`. Ghi chú lưu **commit gốc** của từng nhánh tính năng. Commit gốc là mốc để lấy diff và danh sách commit cherry-pick, vì sau khi merge thì `origin/<env>..<nhánh>` trả về rỗng.
-- **Luồng skill:** onboard-project → analyze-requirements → plan-jira-tasks → start-feature → locate-and-assess → implement-feature → ship-changes → (fix-bug → ship-changes)* → promote-env → write-report.
-- **Không dùng superpowers hay plugin quy trình khác.** Các plugin đó ép TDD, brainstorm, worktree, tự merge hay push, nên xung đột với quy trình của người dùng. Phần hữu ích (tìm nguyên nhân gốc trước khi sửa, chạy kiểm tra xong mới báo là xong) đã đưa thẳng vào các skill. Chỉ thêm plugin khi có một việc cụ thể lặp lại mà bộ skill chưa làm được, và phải đọc nội dung plugin trước khi cài.
+## Các quyết định đã chốt
 
-## Trạng thái & việc tiếp theo
+| Ngày | Quyết định |
+|---|---|
+| 2026-11-14 | Bối cảnh dự án công ty (để hiểu, không phải quy trình bắt buộc): với các môi trường A → B → C (C là production), có dự án checkout nhánh tính năng từ nhánh cao nhất rồi tạo merge request lần lượt vào các nhánh; có dự án lịch sử commit lộn xộn thì mỗi môi trường một nhánh tính năng A1, B1, C1, code ở A1 rồi cherry-pick sang B1, C1. Thực tế còn tuỳ tình hình từng lúc |
+| 2026-11-16 | Hồ sơ dự án là `CLAUDE.local.md`. Exclude `CLAUDE.local.md`, `.claude/skills/`, `.claude/features/` qua `.git/info/exclude` |
+| 2026-11-16 | Báo cáo theo format: tóm tắt BRD, rồi "Chi tiết thay đổi". Màn hình có API: `* Màn hình <Tên> (<path>):` kèm các dòng con `* Call API <METHOD> <url> để <tác dụng>`. Màn hình chỉ sửa UI: một dòng `* Giao diện màn hình (<path>)` |
+| 2026-11-17 | **Đã xoá** các skill `start-feature`, `ship-changes`, `promote-env`. Quy trình git thay đổi theo tình hình từng dự án, người dùng chưa khái quát được. Không làm lại skill git cho tới khi người dùng đề nghị. Các skill hiện có không tự commit, push, tạo nhánh |
+| 2026-11-17 | Không dùng superpowers hay plugin ngoài cho bộ skill này |
 
-- Đã viết đủ 10 skill cho luồng công ty. **Chưa skill nào được thử trên dự án thật.** Người dùng sẽ thử và cải tiến dần khi dùng thực tế.
-- **Câu hỏi còn mở:** dự án cherry-pick mà tester log bug ở môi trường cao hơn (B, C) thì fix trên nhánh nào trước, rồi đưa sang các nhánh còn lại thế nào? Trả lời xong thì cập nhật skill `fix-bug`.
-- **Chưa kiểm chứng:** các lệnh kết nối Figma MCP trong README.
-- **Tiếp theo:** xây skill cho luồng freelance ngoài giờ.
+## Việc còn mở
+
+- Người dùng review chi tiết 7 skill hiện có.
+- Thử trên dự án thật (bắt đầu từ 2026-11-18), rồi sửa skill theo phản hồi thực tế.
+- Skill git: làm sau, khi người dùng đã khái quát được quy trình.
+- Luồng freelance: chưa bắt đầu.
+
+## Cấu trúc
+
+```
+README.md                  Tổng quan + cài đặt nhanh
+HUONG-DAN-SU-DUNG.md       Hướng dẫn sử dụng chi tiết từng bước
+CLAUDE.md                  File này
+.claude/skills/
+  onboard-project/         + ho-so-du-an-template.md (mẫu CLAUDE.local.md, chứa Quy tắc chung)
+  analyze-requirements/    + ghi-chu-tinh-nang-template.md (mẫu ghi chú tính năng)
+  plan-jira-tasks/
+  locate-and-assess/
+  implement-feature/
+  fix-bug/
+  write-report/
+```

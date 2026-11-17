@@ -30,16 +30,10 @@
 |---|---|---|
 | 1 | | |
 
-## Chiến lược git
+## Ghi chú về git
 
-<!-- Chọn một trong hai, xoá cái còn lại -->
+<!-- Ghi nguyên văn lời người dùng. Quy trình git do người dùng tự quyết theo tình hình dự án; Claude không tự tạo nhánh, commit, push, cherry-pick khi chưa được yêu cầu. -->
 
-**Chuẩn:** checkout nhánh tính năng từ `<nhánh cao nhất>` → MR vào `<nhánh kiểm thử 1>` → … → khi golive, MR vào `<nhánh cao nhất>`.
-
-**Cherry-pick:** với các môi trường A → B → C (C là production) thì có các nhánh tính năng A1, B1, C1 checkout lần lượt từ nhánh của từng môi trường.
-1. Code và push lên A1, tạo merge request vào A.
-2. Khi lên B: checkout B1 và cherry-pick các commit từ A1 (rebase nếu cần), tạo merge request vào B.
-3. Khi golive: checkout C1 và cherry-pick từ B1, tạo merge request vào C.
 
 ## Quy ước Jira (theo PM)
 

@@ -1,6 +1,9 @@
 # Bộ skill Claude Code — Frontend (luồng công ty)
 
-Bộ skill để Claude Code làm việc theo đúng quy trình Frontend React ở công ty: từ tìm hiểu dự án, phân tích tài liệu, chia task, code, ship cho tới fix bug và viết báo cáo.
+Bộ skill để Claude Code làm việc theo đúng quy trình Frontend React ở công ty: từ tìm hiểu dự án, phân tích tài liệu, chia task, code, fix bug cho tới viết báo cáo. Các thao tác git (nhánh, commit, push, merge request) bạn tự làm.
+
+> 📖 **Hướng dẫn sử dụng chi tiết từng bước:** [HUONG-DAN-SU-DUNG.md](HUONG-DAN-SU-DUNG.md)
+> 🧠 **Ngữ cảnh cho Claude khi chỉnh sửa repo này:** [CLAUDE.md](CLAUDE.md)
 
 ## Cài vào một dự án
 
@@ -41,29 +44,28 @@ Nếu chưa kết nối được Figma MCP, các skill sẽ xin bạn ảnh ch�
 
 ## Danh sách skill
 
-| Skill | Dùng khi | Trạng thái |
-|---|---|---|
-| `onboard-project` | Bắt đầu với một dự án mới, hoặc dự án chưa có `CLAUDE.local.md` | ✅ Đã có |
-| `write-report` | Viết báo cáo sau khi làm xong tính năng | ✅ Đã có |
-| `analyze-requirements` | Nhận BRD, Figma, BE Specs cho tính năng mới | ✅ Đã có |
-| `plan-jira-tasks` | Chia task để paste vào Jira | ✅ Đã có |
-| `start-feature` | Tạo nhánh tính năng | ✅ Đã có |
-| `locate-and-assess` | Tìm điểm bắt đầu trong code, đánh giá có tái sử dụng được không | ✅ Đã có |
-| `implement-feature` | Code tính năng | ✅ Đã có |
-| `ship-changes` | Commit, push, soạn merge request | ✅ Đã có |
-| `fix-bug` | Fix bug do tester log trên Jira | ✅ Đã có |
-| `promote-env` | Đưa code lên môi trường kiểm thử cao hơn hoặc production | ✅ Đã có |
+| Skill | Dùng khi |
+|---|---|
+| `onboard-project` | Bắt đầu với một dự án mới, hoặc dự án chưa có `CLAUDE.local.md` |
+| `analyze-requirements` | Nhận BRD, Figma, BE Specs cho tính năng mới |
+| `plan-jira-tasks` | Chia task để paste vào Jira |
+| `locate-and-assess` | Tìm điểm bắt đầu trong code, đánh giá có tái sử dụng được không |
+| `implement-feature` | Code tính năng |
+| `fix-bug` | Fix bug do tester log trên Jira |
+| `write-report` | Viết báo cáo sau khi làm xong tính năng |
+
+Chưa có skill nào cho git (tạo nhánh, commit, push, merge request, cherry-pick, lên môi trường). Phần này bạn tự làm, khi đã khái quát được quy trình thực tế thì sẽ làm skill sau.
 
 ## Luồng làm việc
 
 ```
 onboard-project  (một lần cho mỗi dự án)
       ↓
-analyze-requirements → plan-jira-tasks → start-feature → locate-and-assess → implement-feature → ship-changes
-                                                                                                     ↓
-                                              tester log bug → fix-bug → ship-changes  (lặp lại tới khi hết bug)
-                                                                                                     ↓
-                                                         promote-env  (lên môi trường cao hơn / golive) → write-report
+analyze-requirements → plan-jira-tasks → [bạn tạo nhánh] → locate-and-assess → implement-feature → [bạn commit/push/MR]
+                                                                                                         ↓
+                                                   tester log bug → fix-bug → [bạn commit/push]  (lặp lại tới khi hết bug)
+                                                                                                         ↓
+                                                                                                    write-report
 ```
 
 Các skill nối với nhau qua 2 file chỉ có ở máy bạn, không push lên repo:

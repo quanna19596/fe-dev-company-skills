@@ -47,12 +47,10 @@
 
 ## Nhánh & commit
 
-| Môi trường | Nhánh tính năng | Tạo từ (nhánh @ commit gốc) | Merge request | Commit (hash — message) |
-|---|---|---|---|---|
-
-> "Commit gốc" là hash của nhánh môi trường tại thời điểm tạo nhánh tính năng. Sau khi merge request đã được merge thì không còn dùng `origin/<nhánh môi trường>` làm mốc được nữa (lúc đó nó đã chứa sẵn các commit của tính năng), nên phải lấy mốc là hash này.
+| Môi trường | Nhánh tính năng | Tạo từ (nhánh / commit gốc) | Ghi chú |
+|---|---|---|---|
 
 ## Bug
 
-| Mã bug | Môi trường | Nguyên nhân | Commit fix |
+| Mã bug | Môi trường | Nguyên nhân | File đã sửa |
 |---|---|---|---|
